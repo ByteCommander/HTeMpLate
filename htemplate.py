@@ -93,11 +93,11 @@ def build_website(srcpath, destpath):
 
 
 def build_html(inputfile, outputfile):
-    with open(inputfile) as input_f, open(outputfile, mode="w") as output_f:
+    with open(inputfile, encoding="utf-8") as input_f, open(outputfile, encoding="utf-8", mode="w") as output_f:
         def replacer(match):
             indent, file = match.groups()
             print("  > Including " + file)
-            with open(os.path.join(os.path.dirname(inputfile), file)) as f:
+            with open(os.path.join(os.path.dirname(inputfile), file), encoding="utf-8") as f:
                 return "".join(indent + line for line in f).lstrip("\n").rstrip()
 
         result = re.sub(r"([ \t]*)<!--\s*INCLUDE\s*\(\s*(.*)\s*\)\s*-->[ \t]*", replacer, input_f.read())
